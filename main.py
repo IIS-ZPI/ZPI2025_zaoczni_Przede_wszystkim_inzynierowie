@@ -1,0 +1,1 @@
+print("Grupa: Przede wszystkim inżynierowie\nDevOps Scrum Master LeskiewiczMichal")
