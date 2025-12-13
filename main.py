@@ -3,14 +3,12 @@ print("246331")
 print("JulieM99")
 print("lewando54")
 
-# a + b
+# Adding comment for exercise 6
 def Addition(a, b):
     return a + b
 
-# a - b
 def Difference(a,b):
     return a - b
 
-# a * b
 def Multiplication(a, b):
     return a * b
