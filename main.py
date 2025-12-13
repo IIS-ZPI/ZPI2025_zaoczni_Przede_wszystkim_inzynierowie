@@ -3,7 +3,7 @@ print("246331")
 print("JulieM99")
 print("lewando54")
 
-# Comment for exercise 6
+
 def Addition(a, b):
     return a + b
 
