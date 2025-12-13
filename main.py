@@ -9,3 +9,6 @@ def Addition(a, b):
 
 def Difference(a,b):
     return a - b
+
+def Multiplication(a, b):
+    return a * b
