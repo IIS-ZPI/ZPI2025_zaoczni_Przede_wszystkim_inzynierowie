@@ -2,3 +2,7 @@ print("Grupa: Przede wszystkim inżynierowie\nDevOps Scrum Master LeskiewiczMich
 print("246331")
 print("JulieM99")
 print("lewando54")
+
+
+def Addition(a, b):
+    return a + b
