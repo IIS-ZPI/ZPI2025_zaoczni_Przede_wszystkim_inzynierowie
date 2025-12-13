@@ -7,6 +7,7 @@ print("lewando54")
 def Addition(a, b):
     return a + b
 
+# a - b
 def Difference(a,b):
     return a - b
 
