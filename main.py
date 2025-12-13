@@ -6,3 +6,6 @@ print("lewando54")
 
 def Addition(a, b):
     return a + b
+
+def Multiplication(a, b):
+    return a * b
