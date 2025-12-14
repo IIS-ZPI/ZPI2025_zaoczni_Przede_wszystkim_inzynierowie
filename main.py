@@ -9,7 +9,7 @@ def Addition(a, b):
 
 def Difference(a,b):
     return a - b
-
+# Multiplication implementation
 def Multiplication(a, b):
     return a * b
 
