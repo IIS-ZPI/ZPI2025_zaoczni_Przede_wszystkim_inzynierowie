@@ -16,3 +16,5 @@ def Multiplication(a, b):
 def Division(a, b):
     # TODO: Add exception for "x / 0"
     return a / b
+
+#a functionality
