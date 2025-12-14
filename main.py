@@ -9,9 +9,9 @@ def Addition(a, b):
 # Difference implementation
 def Difference(a,b):
     return a - b
-
+# Multiplication implementation
 def Multiplication(a, b):
     return a * b
-
+# Division implementation
 def Division(a, b):
     return a / b
