@@ -12,6 +12,6 @@ def Difference(a,b):
 
 def Multiplication(a, b):
     return a * b
-
+# Division implementation
 def Division(a, b):
     return a / b
