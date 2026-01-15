@@ -127,6 +127,11 @@ class NBPClient:
                 f"Currency '{currency}' not found in table A."
             )
 
+        if not response.ok:
+            raise InvalidApiResponseError(
+                f"NBP API error {response.status_code}: {response.text}"
+            )
+
         data = response.json()
 
         return ExchangeRateDTO(
