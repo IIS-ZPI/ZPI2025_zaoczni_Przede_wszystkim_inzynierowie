@@ -45,13 +45,18 @@ def setup_parser():
     """
     Configures the argument parser with commands defined in SRS (FR-07).
     """
-    parser = argparse.ArgumentParser(description="Currency Exchange Rate Statistical Analysis System", add_help=False)
+    parser = argparse.ArgumentParser(
+        description="Currency Exchange Rate Statistical Analysis System",
+        add_help=False,
+        usage=argparse.SUPPRESS,
+        formatter_class=lambda prog: argparse.RawTextHelpFormatter(prog, max_help_position=40)
+    )
     parser.error = custom_error_handler
 
-    subparsers = parser.add_subparsers(dest='command', help='Available commands')
+    subparsers = parser.add_subparsers(dest='command', title='Available commands')
 
     # Analyze Command
-    analyze_parser = subparsers.add_parser('analyze')
+    analyze_parser = subparsers.add_parser('analyze', help='Analyze currency statistics')
     analyze_parser.add_argument('currency', type=str, help='Currency code (e.g. USD)')
     analyze_parser.add_argument('--period', required=True,
                                 choices=['1-week', '2-weeks', '1-month', '1-quarter', '6-months', '1-year'],
@@ -59,7 +64,7 @@ def setup_parser():
     analyze_parser.add_argument('--start', type=str, help='Start date (YYYY-MM-DD)')
 
     # Distribution Command
-    dist_parser = subparsers.add_parser('change-distribution')
+    dist_parser = subparsers.add_parser('change-distribution', help='Calculate distribution of changes')
     dist_parser.add_argument('currency_1', type=str, help='First currency code')
     dist_parser.add_argument('currency_2', type=str, help='Second currency code')
     dist_parser.add_argument('--period', required=True,
@@ -91,7 +96,7 @@ def main():
                 break
 
             # Handle help command manually
-            if user_input.lower() in ['help', '-h', '--help']:
+            if user_input.lower() in ['help']:
                 parser.print_help()
                 continue
 
