@@ -57,6 +57,7 @@ def setup_parser():
 
     # Analyze Command
     analyze_parser = subparsers.add_parser('analyze', help='Analyze currency statistics')
+    analyze_parser.error = custom_error_handler
     analyze_parser.add_argument('currency', type=str, help='Currency code (e.g. USD)')
     analyze_parser.add_argument('--period', required=True,
                                 choices=['1-week', '2-weeks', '1-month', '1-quarter', '6-months', '1-year'],
@@ -65,6 +66,7 @@ def setup_parser():
 
     # Distribution Command
     dist_parser = subparsers.add_parser('change-distribution', help='Calculate distribution of changes')
+    dist_parser.error = custom_error_handler
     dist_parser.add_argument('currency_1', type=str, help='First currency code')
     dist_parser.add_argument('currency_2', type=str, help='Second currency code')
     dist_parser.add_argument('--period', required=True,
@@ -124,6 +126,8 @@ def main():
         except Exception as e:
             # Handle unexpected errors
             print(f"Unexpected error: {e}")
+        except SystemExit:
+            continue
 
 
 if __name__ == '__main__':
