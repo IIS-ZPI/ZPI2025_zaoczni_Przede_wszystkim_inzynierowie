@@ -58,6 +58,14 @@ This artifact represents an executable form of the project suitable for deployme
 
 ---
 
+## NBP Client
+
+**NBPClient** is a Python client for interacting with the **National Bank of Poland (NBP) REST API**.  
+It allows you to fetch the latest currency exchange rates or retrieve historical rates over a given date range.  
+Responses are mapped into **immutable `ExchangeRateDTO` objects**, ensuring safe and consistent use in the application.
+
+---
+
 ## Product Backlog
 
 Project requirements, tasks, and development progress are managed using **Jira**.
