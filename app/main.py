@@ -110,6 +110,11 @@ def main():
             # This is the 'Anchor date' (end date of the range)
             anchor_date = validate_date(args.start)
 
+            if args.period == '1-quarter':
+                valid_months = [1, 4, 7, 10]
+                if anchor_date.day != 1 or anchor_date.month not in valid_months:
+                    raise ValueError(
+                        "Error: For '1-quarter', the start date must be the first day of a calendar quarter (Jan 1, Apr 1, Jul 1, Oct 1).")
 
             if args.command == 'analyze':
                 # TODO: Integrate with AnalysisService (SCRUM-8)
