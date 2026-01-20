@@ -3,6 +3,9 @@ import shlex
 import argparse
 from datetime import datetime, date
 
+from app.api.nbp_client import NBPClient
+from app.services.analyze_service import CurrencyAnalysisService
+
 # Constant from SRS (FR-07 Data Constraint)
 MIN_DATE = date(2002, 1, 2)
 
@@ -117,8 +120,17 @@ def main():
                         "Error: For '1-quarter', the start date must be the first day of a calendar quarter (Jan 1, Apr 1, Jul 1, Oct 1).")
 
             if args.command == 'analyze':
-                # TODO: Integrate with AnalysisService (SCRUM-8)
-                print(f"[LOGIC] Analyzing {args.currency.upper()} | Period: {args.period} | Anchor Date: {anchor_date}")
+
+                nbp_client = NBPClient()
+                service = CurrencyAnalysisService(nbp_client)
+
+                result = service.analyze_command(
+                    currency=args.currency.upper(),
+                    period=args.period,
+                    start=anchor_date.strftime("%Y-%m-%d")
+                )
+
+                service.display_analysis(result)
 
             elif args.command == 'change-distribution':
                 # TODO: Integrate with DistributionService (SCRUM-9)
