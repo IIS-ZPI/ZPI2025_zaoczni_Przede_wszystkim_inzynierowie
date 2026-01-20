@@ -1,6 +1,6 @@
 import requests
 from datetime import date
-from .exceptions import (
+from app.error.exceptions import (
     CurrencyNotFoundError,
     InvalidApiResponseError
 )

@@ -12,3 +12,6 @@ class NoDataForDateRangeError(NBPApiError):
 
 class InvalidApiResponseError(NBPApiError):
     pass
+
+class InvalidDateRangeError(NBPApiError):
+    pass

@@ -2,7 +2,7 @@ import pytest
 from unittest.mock import patch, Mock
 from datetime import date
 
-from app.api.exceptions import CurrencyNotFoundError, InvalidApiResponseError
+from app.error.exceptions import CurrencyNotFoundError, InvalidApiResponseError
 from app.api.nbp_client import NBPClient
 from app.domain.rate_dto import ExchangeRateDTO
 
