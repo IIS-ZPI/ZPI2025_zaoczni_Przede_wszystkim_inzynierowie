@@ -108,7 +108,6 @@ class CurrencyAnalysisService:
                 "Not enough exchange rate data for analysis."
             )
 
-        print(len(rates))
         values = [r.value for r in rates]
 
 
@@ -173,7 +172,10 @@ class CurrencyAnalysisService:
         print(f"Currency: {analysis.currency}")
         print(f"Period: {analysis.start_date} - {analysis.end_date}")
         print(f"Median: {analysis.median}")
-        print(f"Mode: {analysis.modes if analysis.modes else []}")
+        if analysis.modes:
+            print(f"Mode: {analysis.modes}")
+        else:
+            print("Mode: No dominant value")
         print(f"Standard deviation: {analysis.std_dev}")
         print(f"coefficient_of_variation: {analysis.coefficient_of_variation}")
         print(f"Increased: {analysis.sessions['increased']}")

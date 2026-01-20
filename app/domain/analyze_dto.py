@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from datetime import date
-from typing import Dict
+from typing import Dict, List
 
 """
     Data Transfer Object (DTO) representing the result of a statistical
@@ -40,7 +40,7 @@ class AnalyzeDTO:
     start_date: date
     end_date: date
     median: float
-    modes: float
+    modes: List[float]
     std_dev: float
     coefficient_of_variation: float
     sessions: Dict[str, int]
