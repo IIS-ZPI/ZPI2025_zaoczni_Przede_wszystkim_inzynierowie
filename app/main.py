@@ -135,6 +135,13 @@ def main():
 
             elif args.command == 'change-distribution':
 
+                c1 = args.currency_1.upper()
+                c2 = args.currency_2.upper()
+
+                if c1 == c2:
+                    raise ValueError(
+                        f"Error: Currency pair must consist of two different currencies.")
+
                 nbp_client = NBPClient()
                 service = DistributionService(nbp_client)
 
