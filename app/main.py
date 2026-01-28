@@ -5,6 +5,7 @@ from datetime import datetime, date
 
 from app.api.nbp_client import NBPClient
 from app.services.analyze_service import CurrencyAnalysisService
+from app.services.distribution_service import DistributionService
 
 # Constant from SRS (FR-07 Data Constraint)
 MIN_DATE = date(2002, 1, 2)
@@ -133,9 +134,24 @@ def main():
                 service.display_analysis(result)
 
             elif args.command == 'change-distribution':
-                # TODO: Integrate with DistributionService (SCRUM-9)
-                print(
-                    f"[LOGIC] Distribution {args.currency_1.upper()}/{args.currency_2.upper()} | Period: {args.period} | Anchor Date: {anchor_date}")
+
+                c1 = args.currency_1.upper()
+                c2 = args.currency_2.upper()
+
+                if c1 == c2:
+                    raise ValueError(
+                        f"Error: Currency pair must consist of two different currencies.")
+
+                nbp_client = NBPClient()
+                service = DistributionService(nbp_client)
+
+                result = service.calculate_distribution(
+                    currency_1=args.currency_1.upper(),
+                    currency_2=args.currency_2.upper(),
+                    period=args.period,
+                    start=anchor_date.strftime("%Y-%m-%d")
+                )
+                service.display_histogram(result)
 
         except ValueError as e:
             # Handle validation errors (both date and syntax)
