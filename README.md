@@ -49,12 +49,22 @@ This ensures that every released version of the application is tested, versioned
 
 ## Artifact Generation
 
-Since the project is implemented in Python, the release artifact is provided as a compressed archive (`.zip`) containing:
+The project is implemented in Python and provides **two release artifacts**:
+
+### 1. Windows Executable (`.exe`)
+For Windows users, the project is released as a **standalone executable (`.exe`)** built using PyInstaller.  
+This artifact:
+- bundles the application code and all required dependencies,
+- does **not** require a Python interpreter to be installed,
+- is suitable for direct execution on Windows systems.
+
+### 2. Source Distribution (`.zip`)
+A compressed archive (`.zip`) is also provided containing:
 - the application source code,
 - dependency definitions,
 - project documentation.
 
-This artifact represents an executable form of the project suitable for deployment in environments with a Python interpreter installed.
+This artifact is intended for deployment or development in environments where a Python interpreter is available.
 
 ---
 

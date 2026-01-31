@@ -49,9 +49,9 @@ jobs:
 
 
   release:
-    name: Create release and artifact
+    name: Create release and artifacts
     needs: test
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     if: >
       github.event_name == 'pull_request' &&
@@ -66,10 +66,20 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Build executable artifact (mock)
+      - name: Install dependencies
         run: |
-          mkdir dist
-          zip -r dist/currency-analysis-system.zip app README.md requirements.txt
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pyinstaller
+
+      - name: Build Windows EXE
+        run: |
+          pyinstaller --onefile app/main.py --name currency-analysis-system
+
+      - name: Build zip artifact (source)
+        run: |
+          mkdir dist-zip
+          tar -a -c -f dist-zip/currency-analysis-system.zip app README.md requirements.txt
 
       - name: Generate version
         id: version
@@ -86,4 +96,6 @@ jobs:
         with:
           tag_name: v${{ steps.version.outputs.VERSION }}
           name: Release v${{ steps.version.outputs.VERSION }}
-          files: dist/currency-analysis-system.zip
+          files: |
+            dist/currency-analysis-system.exe
+            dist-zip/currency-analysis-system.zip
