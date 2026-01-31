@@ -1,5 +1,8 @@
 name: CI & Release
 
+permissions:
+  contents: write
+
 on:
   push:
     branches:
@@ -53,13 +56,13 @@ jobs:
     needs: test
     runs-on: windows-latest
 
-    if: >
-      github.event_name == 'pull_request' &&
-      github.base_ref == 'release'
+    if: github.event_name == 'push' && github.ref == 'refs/heads/release'
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -76,26 +79,34 @@ jobs:
         run: |
           pyinstaller --onefile app/main.py --name currency-analysis-system
 
-      - name: Build zip artifact (source)
+      - name: Build source zip
         run: |
           mkdir dist-zip
           tar -a -c -f dist-zip/currency-analysis-system.zip app README.md requirements.txt
 
-      - name: Generate version
+      - name: Generate version (start at 2.0.0)
         id: version
+        shell: bash
         run: |
-          echo "VERSION=2.0.${{ github.run_number }}" >> $GITHUB_OUTPUT
+          git fetch --tags
 
-      - name: Create Git tag
-        run: |
-          git tag v${{ steps.version.outputs.VERSION }}
-          git push origin v${{ steps.version.outputs.VERSION }}
+          LATEST_TAG=$(git tag -l "v2.0.*" | sort -V | tail -n 1)
+
+          if [ -z "$LATEST_TAG" ]; then
+            NEXT_VERSION="2.0.0"
+          else
+            PATCH=$(echo "$LATEST_TAG" | sed 's/v2\.0\.//')
+            NEXT_VERSION="2.0.$((PATCH + 1))"
+          fi
+
+          echo "VERSION=$NEXT_VERSION" >> $GITHUB_OUTPUT
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: v${{ steps.version.outputs.VERSION }}
           name: Release v${{ steps.version.outputs.VERSION }}
+          generate_release_notes: true
           files: |
             dist/currency-analysis-system.exe
             dist-zip/currency-analysis-system.zip
