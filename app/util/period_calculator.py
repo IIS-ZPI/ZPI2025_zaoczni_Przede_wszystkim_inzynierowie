@@ -42,26 +42,29 @@ class PeriodCalculator:
         end_date: date,
         period: str
     ) -> date:
+        start_date = None
 
         if period == "1-week":
-            return end_date - timedelta(weeks=1)
+            start_date = end_date - timedelta(weeks=1)
+        elif period == "2-weeks":
+            start_date = end_date - timedelta(weeks=2)
+        elif period == "1-month":
+            start_date = PeriodCalculator._subtract_months(end_date, 1)
+        elif period == "1-quarter":
+            start_date = PeriodCalculator._subtract_months(end_date, 3)
+        elif period == "6-months":
+            start_date = PeriodCalculator._subtract_months(end_date, 6)
+        elif period == "1-year":
+            start_date = PeriodCalculator._subtract_years(end_date, 1)
+        else:
+            raise ValueError(f"Unsupported period: {period}")
 
-        if period == "2-weeks":
-            return end_date - timedelta(weeks=2)
+        # Ensure start date is not before NBP data limit (2002-01-02)
+        min_allowed_date = date(2002, 1, 2)
+        if start_date < min_allowed_date:
+            return min_allowed_date
 
-        if period == "1-month":
-            return PeriodCalculator._subtract_months(end_date, 1)
-
-        if period == "1-quarter":
-            return PeriodCalculator._subtract_months(end_date, 3)
-
-        if period == "6-months":
-            return PeriodCalculator._subtract_months(end_date, 6)
-
-        if period == "1-year":
-            return PeriodCalculator._subtract_years(end_date, 1)
-
-        raise ValueError(f"Unsupported period: {period}")
+        return start_date
 
     """
         Subtracts a given number of months from a date, handling year rollover
