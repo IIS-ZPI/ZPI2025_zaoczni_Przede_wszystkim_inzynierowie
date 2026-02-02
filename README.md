@@ -1,3 +1,8 @@
+## Documentation
+Full documentation and test reports for the project are available inside "documentation" folder.
+
+---
+
 ## CI/CD Pipeline
 
 This project uses a CI/CD pipeline implemented with **GitHub Actions** to automate testing, quality checks, and the release process.  
