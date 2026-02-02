@@ -171,13 +171,14 @@ class CurrencyAnalysisService:
 
         print(f"Currency: {analysis.currency}")
         print(f"Period: {analysis.start_date} - {analysis.end_date}")
-        print(f"Median: {analysis.median}")
+        print(f"Median: {analysis.median:.4f} PLN")
         if analysis.modes:
-            print(f"Mode: {analysis.modes}")
+            modes_str = ", ".join([f"{m:.4f} PLN" for m in analysis.modes])
+            print(f"Mode: {modes_str}")
         else:
             print("Mode: No dominant value")
-        print(f"Standard deviation: {analysis.std_dev}")
-        print(f"coefficient_of_variation: {analysis.coefficient_of_variation}")
+        print(f"Standard deviation: {analysis.std_dev:.4f} PLN")
+        print(f"Coefficient of variation: {analysis.coefficient_of_variation:.4f}")
         print(f"Increased: {analysis.sessions['increased']}")
         print(f"Decreased: {analysis.sessions['decreased']}")
         print(f"Unchanged: {analysis.sessions['unchanged']}")
